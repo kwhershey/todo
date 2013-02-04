@@ -13,7 +13,14 @@
 -(id)initWithTask:(NSString *)myTask
 {
     self = [super init];
-    self.task = myTask;
+    //self.task = myTask;
+    self.task = [[NSMutableAttributedString alloc] initWithString:myTask];
+    //UIColor *_red = [UIColor redColor];
+    //[self.task addAttribute:NSForegroundColorAttributeName value:_red]; //range:NSMakeRange(0, [self.task length])];
+    [self.task addAttribute:NSStrikethroughStyleAttributeName value:@1 range:NSMakeRange(0, [self.task length])];
+    [self.task addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, [self.task length])];
+    self.completed = FALSE;
+    
     return self;
 }
 

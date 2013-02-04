@@ -75,7 +75,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
     tasksItem *newItem = [self.dataController itemAtIndex:indexPath.row];
-    cell.textLabel.text = [newItem task];
+    cell.textLabel.attributedText = [newItem task];
     //NSDate *object = _objects[indexPath.row];
     //cell.textLabel.text = [object description];
     return cell;
@@ -151,5 +151,7 @@
     }
 }
  */
+
+
 
 @end

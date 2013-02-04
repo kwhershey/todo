@@ -10,7 +10,9 @@
 
 @interface tasksItem : NSObject
 
-@property NSString *task;
+@property NSMutableAttributedString *task;
+
+@property BOOL *completed;
 
 -(id)initWithTask:(NSString *) myTask;
 

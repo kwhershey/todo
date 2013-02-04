@@ -8,6 +8,7 @@
 
 #import "tasksAddTaskViewController.h"
 #import "tasksItem.h"
+#import "tasksMasterViewController.h"
 
 @interface tasksAddTaskViewController ()
 
@@ -48,6 +49,8 @@
     if(textField==self.taskTextInput)
     {
         [textField resignFirstResponder];
+        //UIStoryboardSegue *newSegue = [[UIStoryboardSegue alloc]initWithIdentifier:@"ReturnInput" source:self destination:self];
+        //[self prepareForSegue:newSegue sender:self];
     }
     return YES;
 }
