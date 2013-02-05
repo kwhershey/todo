@@ -166,7 +166,10 @@
 {
     if([[segue identifier] isEqualToString:@"CancelInput"])
     {
+        tasksAddTaskViewController *addController = [segue sourceViewController];
+        addController.taskTextInput.text = @"";
         [self dismissViewControllerAnimated: YES completion:NULL];
+        //[self.dataController removeItemAtIndex:[self.dataController.taskList indexOfObject:[self.dataController.taskList lastObject]]];
     }
 }
 
