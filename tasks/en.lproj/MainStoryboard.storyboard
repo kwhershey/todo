@@ -45,7 +45,7 @@
                                                     <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="T7z-sn-v2A" id="3ce-qN-CYy"/>
-                                                        <segue destination="4yP-Xz-pAG" kind="unwind" identifier="ReturnReturnInput" unwindAction="ReturnDone:" id="l7F-fH-yhK"/>
+                                                        <segue destination="4yP-Xz-pAG" kind="unwind" identifier="ReturnReturnInput" unwindAction="Done:" id="l7F-fH-yhK"/>
                                                     </connections>
                                                 </textField>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Task:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y7V-d5-SlF">
@@ -78,7 +78,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Done" id="kFY-nG-fZF">
                             <connections>
-                                <segue destination="4yP-Xz-pAG" kind="unwind" identifier="ReturnInput" unwindAction="Done:" id="E0U-lz-PJJ"/>
+                                <segue destination="4yP-Xz-pAG" kind="unwind" identifier="ReturnInput" unwindAction="Done:" id="9o6-Y9-XvA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

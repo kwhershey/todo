@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "tasksMasterViewController.h"
 
 @interface tasksAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
 
 @end

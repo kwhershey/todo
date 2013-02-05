@@ -10,15 +10,17 @@
 
 @interface tasksItem : NSObject
 
-@property NSMutableAttributedString *task;
+//@property NSMutableAttributedString *task;
+
+@property NSString *task;
 
 @property BOOL completed;
 
 -(id)initWithTask:(NSString *) myTask;
 
--(void)strikeThrough;
+//-(void)strikeThrough;
 
--(void)unstrikeThrough;
+//-(void)unstrikeThrough;
 
 -(void)switchState;
 

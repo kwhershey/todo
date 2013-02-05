@@ -55,20 +55,23 @@
     return YES;
 }
 
+/*
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {   
-    if([[segue identifier] isEqualToString:@"ReturnReturnInput"])
+    if([[segue identifier] isEqualToString:@"ReturnInput"] || [[segue identifier] isEqualToString:@"ReturnReturnInput"])
     {
         if([self.taskTextInput.text length])
         {
             tasksItem *newItem;
             newItem = [[tasksItem alloc] initWithTask:self.taskTextInput.text];
             self.taskToAdd = newItem;
+            self.taskTextInput.text = @"";
         }
-        return;
     }
     
 }
+ */
+
 
 #pragma mark - Table view data source
 

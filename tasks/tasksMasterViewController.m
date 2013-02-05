@@ -33,10 +33,24 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    self.dataController =[[tasksDataController alloc]init];
+    
 
-    //UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    //self.navigationItem.rightBarButtonItem = addButton;
-     
+    UIApplication *myApp = [UIApplication sharedApplication];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationDidEnterBackground:)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:myApp];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"data.plist"];
+    if ([fileManager fileExistsAtPath:filePath] == YES)
+    {
+         self.dataController.taskList = [[NSMutableArray alloc]initWithArray:[NSKeyedUnarchiver unarchiveObjectWithFile:filePath]];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -75,7 +89,18 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
     tasksItem *newItem = [self.dataController itemAtIndex:indexPath.row];
-    cell.textLabel.attributedText = [newItem task];
+    NSMutableAttributedString *cellString =[[NSMutableAttributedString alloc]initWithString:newItem.task];
+    if(newItem.completed)
+    {
+        [cellString addAttribute:NSStrikethroughStyleAttributeName value:@1 range:NSMakeRange(0, [cellString length])];
+        [cellString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, [cellString length])];
+    }
+    else
+    {
+        [cellString addAttribute:NSStrikethroughStyleAttributeName value:@0 range:NSMakeRange(0, [cellString length])];
+        [cellString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, [cellString length])];
+    }
+    cell.textLabel.attributedText = cellString;
     if(newItem.completed)
     {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -96,22 +121,30 @@
     return YES;
 }
 
+
 -(IBAction)Done:(UIStoryboardSegue *)segue
 {
-    if([[segue identifier] isEqualToString:@"ReturnInput"])
+    if([[segue identifier] isEqualToString:@"ReturnInput"] || [[segue identifier] isEqualToString:@"ReturnReturnInput"])
     {
         tasksAddTaskViewController *addController = [segue sourceViewController];
-        if(addController.taskToAdd)
+        //if(addController.taskToAdd)
+        if(! [addController.taskTextInput.text isEqualToString:@""])
         {
-            [self.dataController addTasksItem:addController.taskToAdd];
+            tasksItem *newItem;
+            newItem = [[tasksItem alloc] initWithTask:addController.taskTextInput.text];
+            [self.dataController addTasksItem:newItem];
+            addController.taskTextInput.text = @"";
             [[self tableView] reloadData];
+            
+            [self dismissViewControllerAnimated: YES completion:NULL];
         }
         
-        [self dismissViewControllerAnimated: YES completion:NULL];
+        
     }
     
 }
-
+ 
+/*
 -(IBAction)ReturnDone:(UIStoryboardSegue *)segue
 {
     if([[segue identifier] isEqualToString:@"ReturnReturnInput"])
@@ -127,6 +160,7 @@
     }
     
 }
+ */
 
 -(IBAction)Cancel:(UIStoryboardSegue *)segue
 {
@@ -180,6 +214,20 @@
     [self.dataController changeStateAtIndex:indexPath.row];
     [[self tableView] reloadData];
 }
+
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    NSLog(@"Entering Background");
+
+    NSArray *data = [[NSArray alloc] initWithArray:self.dataController.taskList];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docDir = [paths objectAtIndex:0];
+    NSString *fullFileName = [NSString stringWithFormat:@"%@/data.plist", docDir];
+[NSKeyedArchiver archiveRootObject:data toFile:fullFileName];
+    //[NSKeyedArchiver archiveRootObject:<#(id)#> toFile:<#(NSString *)#>]
+}
+
+ 
 
 
 
