@@ -223,8 +223,8 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *docDir = [paths objectAtIndex:0];
     NSString *fullFileName = [NSString stringWithFormat:@"%@/data.plist", docDir];
-[NSKeyedArchiver archiveRootObject:data toFile:fullFileName];
-    //[NSKeyedArchiver archiveRootObject:<#(id)#> toFile:<#(NSString *)#>]
+    [NSKeyedArchiver archiveRootObject:data toFile:fullFileName];
+    
 }
 
  

@@ -51,6 +51,21 @@
 }
 
 
+static NSString *const ktask = @"task";
+static NSString *const kcompleted = @"completed";
+
+-(id)initWithCoder:(NSCoder *)decoder {
+       if ((self=[super init])) {
+        self.task = [decoder decodeObjectForKey:ktask];
+        self.completed = [decoder decodeIntegerForKey:kcompleted];
+    }
+    return self;
+}
+-(void)encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeObject:self.task forKey:ktask];
+    [encoder encodeInt:self.completed forKey:kcompleted];
+}
+
 
 
 @end

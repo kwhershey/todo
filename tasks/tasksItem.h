@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface tasksItem : NSObject
+@interface tasksItem : NSObject 
 
 //@property NSMutableAttributedString *task;
 
@@ -24,4 +24,15 @@
 
 -(void)switchState;
 
+//-(id)initWithCoder:(NSCoder *)decoder;
+
+//-(void)encodeWithCoder:(NSCoder *)encoder;
+
 @end
+
+@interface NSObject (NSCoding)
+-(id)initWithCoder:(NSCoder*)decoder;
+-(void)encodeWithCoder:(NSCoder*)encoder;
+@end
+
+
