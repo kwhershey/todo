@@ -32,7 +32,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    //self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
     //UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     //self.navigationItem.rightBarButtonItem = addButton;
@@ -76,6 +76,13 @@
 
     tasksItem *newItem = [self.dataController itemAtIndex:indexPath.row];
     cell.textLabel.attributedText = [newItem task];
+    if(newItem.completed)
+    {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    else{
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
     //NSDate *object = _objects[indexPath.row];
     //cell.textLabel.text = [object description];
     return cell;
@@ -86,13 +93,13 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    return NO;
+    return YES;
 }
 
 -(IBAction)Done:(UIStoryboardSegue *)segue
 {
-    //if([[segue identifier] isEqualToString:@"ReturnInput"])
-   // {
+    if([[segue identifier] isEqualToString:@"ReturnInput"])
+    {
         tasksAddTaskViewController *addController = [segue sourceViewController];
         if(addController.taskToAdd)
         {
@@ -101,7 +108,23 @@
         }
         
         [self dismissViewControllerAnimated: YES completion:NULL];
-    //}
+    }
+    
+}
+
+-(IBAction)ReturnDone:(UIStoryboardSegue *)segue
+{
+    if([[segue identifier] isEqualToString:@"ReturnReturnInput"])
+     {
+    tasksAddTaskViewController *addController = [segue sourceViewController];
+    if(addController.taskToAdd)
+    {
+        [self.dataController addTasksItem:addController.taskToAdd];
+        [[self tableView] reloadData];
+    }
+    
+    [self dismissViewControllerAnimated: YES completion:NULL];
+    }
     
 }
 
@@ -151,6 +174,12 @@
     }
 }
  */
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.dataController changeStateAtIndex:indexPath.row];
+    [[self tableView] reloadData];
+}
 
 
 

@@ -12,8 +12,14 @@
 
 @property NSMutableAttributedString *task;
 
-@property BOOL *completed;
+@property BOOL completed;
 
 -(id)initWithTask:(NSString *) myTask;
+
+-(void)strikeThrough;
+
+-(void)unstrikeThrough;
+
+-(void)switchState;
 
 @end

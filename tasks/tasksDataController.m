@@ -59,4 +59,12 @@
     [self.taskList addObject:newItem];
 }
 
+-(void)changeStateAtIndex:(NSUInteger)index
+{
+    tasksItem *taskToChange = [self itemAtIndex:index];
+    [taskToChange switchState];
+    [self.taskList replaceObjectAtIndex:index withObject:taskToChange];
+    
+}
+
 @end

@@ -56,8 +56,8 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if([[segue identifier] isEqualToString:@"ReturnInput"])
+{   
+    if([[segue identifier] isEqualToString:@"ReturnReturnInput"])
     {
         if([self.taskTextInput.text length])
         {
@@ -65,6 +65,7 @@
             newItem = [[tasksItem alloc] initWithTask:self.taskTextInput.text];
             self.taskToAdd = newItem;
         }
+        return;
     }
     
 }

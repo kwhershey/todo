@@ -23,6 +23,8 @@
 
 -(void)addTasksItem:(tasksItem *)newItem;
 
+-(void)changeStateAtIndex:(NSUInteger)index;
+
 
 
 @end
